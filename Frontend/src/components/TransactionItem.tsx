@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BACKEND_URL } from "../config.ts";
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'; // Changed from faTrashCan to faTrashAlt
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 interface TransactionItemProps {
     id: number;

@@ -133,7 +133,7 @@ transactionRouter.get('/get', async (c) => {
 });
 
 
-// Fetch the user
+
 transactionRouter.get('/user', async (c) => {
     const userId = c.get("userId");
 
@@ -173,7 +173,7 @@ transactionRouter.post('/create', async (c) => {
         })
     }
 
-    // Check if category exists, if not create it
+
     let category = await prisma.category.findFirst({
         where: {
             userId : Number(c.get("userId")),
@@ -292,7 +292,7 @@ transactionRouter.put('/:id', async (c) => {
    })
 });
 
-// Delete a specific transaction
+
 transactionRouter.delete('/:id', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -311,7 +311,7 @@ transactionRouter.delete('/:id', async (c) => {
         });
     }
 
-    // If the transaction exists, delete it
+
     const transaction = await prisma.transaction.delete({
         where: {
             id: Number(c.req.param("id")),
@@ -324,7 +324,6 @@ transactionRouter.delete('/:id', async (c) => {
 });
 
 
-// Fetch a summary of total income, expenses, and balance
 transactionRouter.get('/summary/:userId', async (c) => {   //facing problem here
     const userId = c.req.param("userId")
     const prisma = new PrismaClient({
@@ -357,7 +356,7 @@ transactionRouter.get('/summary/:userId', async (c) => {   //facing problem here
     });
 });
 
-// Fetch data for visualizing spending habits
+
 transactionRouter.get('/chart-data/:userId', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -531,7 +530,6 @@ transactionRouter.delete('/categories/:id', async (c) => {
         },
     });
 
-    // Find the 'others' category or create it if it doesn't exist
     let othersCategory = await prisma.category.findFirst({
         where: {
             name: 'others',
@@ -548,7 +546,7 @@ transactionRouter.delete('/categories/:id', async (c) => {
         });
     }
 
-    // Update all transactions to have their categoryId set to the id of the 'others' category
+
     for (const transaction of transactionsToUpdate) {
         await prisma.transaction.update({
             where: { id: transaction.id },
@@ -556,7 +554,7 @@ transactionRouter.delete('/categories/:id', async (c) => {
         });
     }
 
-    // Delete the category
+
     const category = await prisma.category.delete({
         where: {
             id: categoryId,

@@ -27,7 +27,7 @@ userRouter.post('/signup', async (c) => {
     }).$extends(withAccelerate());
 
     try {
-        // Check if a user with the provided username already exists
+
         const existingUser = await prisma.user.findUnique({
             where: {
                 username: body.username,

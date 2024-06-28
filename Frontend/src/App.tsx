@@ -10,6 +10,7 @@ import EditTransaction from "./pages/EditTransaction.tsx";
 import AddCategory from "./pages/AddCategory.tsx";
 import EditCategory from "./pages/EditCategory.tsx";
 import Categories from "./pages/Categories.tsx";
+import {HowToUsePage} from "./pages/HowToUse.tsx";
 
 
 function App(){
@@ -26,6 +27,7 @@ function App(){
                 <Route path={"transactions/edit/:id"} element={<EditTransaction/>}/>
                 <Route path={"/add/categories"} element={<AddCategory/>}/>
                 <Route path={"categories/edit/:id"} element={<EditCategory/>}/>
+                <Route path={"/how"}element={<HowToUsePage/>}/>
             </Routes>
         </BrowserRouter>
     )
