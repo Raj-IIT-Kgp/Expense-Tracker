@@ -26,7 +26,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             }
             navigate("/dashboard");
         } catch(e) {
-            alert("Error while signing up")
+            alert("Already have an account or enter valid credential")
         } finally {
             setIsLoading(false); // Set loading to false when request is complete or error occurs
         }
