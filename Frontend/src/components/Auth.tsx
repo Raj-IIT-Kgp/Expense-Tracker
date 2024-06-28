@@ -34,7 +34,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                     if (axiosError.response.status === 400) {
                         alert("Username already exists. Please choose a different username.");
                     } else if (axiosError.response.status === 401) {
-                        alert("Invalid credentials. Please check your username and password.");
+                        alert("User not found or password is incorrect");
                     } else if (axiosError.response.status === 411) {
                         alert("Invalid input. Please provide valid input data.");
                     } else {

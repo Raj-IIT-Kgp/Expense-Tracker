@@ -91,7 +91,7 @@ userRouter.post('/signin', async (c) => {
         if (!user) {
             c.status(401);
             return c.json({
-                message: "Invalid credentials"
+                message: "user not found or password is incorrect"
             })
         }
         const jwt = await sign({
