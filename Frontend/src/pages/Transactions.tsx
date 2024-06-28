@@ -94,6 +94,7 @@ const Transactions: React.FC = () => {
                             <div className="mb-4">
                                 <label htmlFor="searchBox" className="block text-sm font-medium text-gray-700">Search:</label>
                                 <input
+                                    placeholder={"Search in description"}
                                     id="searchBox"
                                     className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     onChange={(e) => setSearchTerm(e.target.value)}
