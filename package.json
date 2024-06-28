@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@raj9339/common-app": "^1.0.0",
-    "prisma": "^5.15.1"
-  }
-}
