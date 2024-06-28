@@ -13,8 +13,6 @@ dist/
 
 # deps
 node_modules/
-wrangler.toml
-.wrangler
 
 # env
 .env

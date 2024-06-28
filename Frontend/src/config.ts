@@ -1,0 +1,1 @@
+export const BACKEND_URL = "https://expense-tracker.rajm97985.workers.dev"
