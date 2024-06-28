@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SignupInput } from "@raj9339/common-app";
-import axios from "axios";
+import axios, { AxiosError } from "axios"; // Import AxiosError for TypeScript support
 import { BACKEND_URL } from "../config.ts";
 import LoadingSpinner from "./LoadingSpinner.tsx";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -13,26 +13,51 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         username: "",
         password: ""
     });
-    const [isLoading, setIsLoading] = useState(false); // New state for loading
+    const [isLoading, setIsLoading] = useState(false);
 
     async function sendRequest() {
-        setIsLoading(true); // Set loading to true when request starts
+        setIsLoading(true);
         try {
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
             const jwt = response.data.token;
             localStorage.setItem("token", jwt);
-            if(response.data.message){
-                alert(response.data.message)
+            if (response.data.message) {
+                alert(response.data.message);
             }
             navigate("/dashboard");
-        } catch(e) {
-            alert("Already have an account or enter valid credential")
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                // Handle Axios-specific errors
+                const axiosError = error as AxiosError;
+                if (axiosError.response) {
+                    // The request was made and the server responded with a status code
+                    if (axiosError.response.status === 400) {
+                        alert("Username already exists. Please choose a different username.");
+                    } else if (axiosError.response.status === 401) {
+                        alert("Invalid credentials. Please check your username and password.");
+                    } else if (axiosError.response.status === 411) {
+                        alert("Invalid input. Please provide valid input data.");
+                    } else {
+                        alert("Server error. Please try again later.");
+                    }
+                } else if (axiosError.request) {
+                    // The request was made but no response was received
+                    alert("No response from server. Please check your internet connection or try again later.");
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.error('Error', axiosError.message);
+                    alert("An unexpected error occurred. Please try again later.");
+                }
+            } else if(error instanceof  Error) {
+                // Handle non-Axios errors
+                console.error('Error', error.message);
+                alert("An unexpected error occurred. Please try again later.");
+            }
         } finally {
-            setIsLoading(false); // Set loading to false when request is complete or error occurs
+            setIsLoading(false);
         }
     }
 
-    // If loading, render loading message
     if (isLoading) {
         return <div className="h-screen flex justify-center items-center">
             <LoadingSpinner />

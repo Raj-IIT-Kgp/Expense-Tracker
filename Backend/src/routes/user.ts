@@ -11,6 +11,7 @@ export const userRouter = new Hono<{
     }
 }>();
 
+// Example handling of individual input errors
 userRouter.post('/signup', async (c) => {
     const body = await c.req.json();
     const { success } = signupInput.safeParse(body);
@@ -18,12 +19,12 @@ userRouter.post('/signup', async (c) => {
         c.status(411);
         return c.json({
             message: "Invalid input"
-        })
+        });
     }
 
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate())
+    }).$extends(withAccelerate());
 
     try {
         // Check if a user with the provided username already exists
@@ -31,13 +32,13 @@ userRouter.post('/signup', async (c) => {
             where: {
                 username: body.username,
             }
-        })
+        });
 
         if (existingUser) {
             c.status(400);
             return c.json({
                 message: "Username already exists"
-            })
+            });
         }
 
         const user = await prisma.user.create({
@@ -46,22 +47,24 @@ userRouter.post('/signup', async (c) => {
                 password: body.password,
                 name: body.name
             }
-        })
+        });
         const jwt = await sign({
             id: user.id
         }, c.env.JWT_SECRET);
         return c.json({
-            token : jwt,
-            message : "Signup successfully"
-        })
-    } catch(e) {
-        console.log(e);
+            token: jwt,
+            message: "Signup successfully"
+        });
+    } catch (e) {
+        console.error(e);
         c.status(500);
         return c.json({
-            message : "Server error"
-        })
+            message: "Server error"
+        });
+    } finally {
+        await prisma.$disconnect();
     }
-})
+});
 
 
 userRouter.post('/signin', async (c) => {
