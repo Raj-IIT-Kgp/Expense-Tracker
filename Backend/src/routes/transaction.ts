@@ -441,7 +441,7 @@ transactionRouter.get('/categories/:userId', async (c) => { // same error
 
     const userId = c.req.param("userId");
 
-    // Fetch all categories for a specific user and order by name
+
     const categories = await prisma.category.findMany({
         where: {
             userId: Number(userId)

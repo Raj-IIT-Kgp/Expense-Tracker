@@ -27,10 +27,10 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             navigate("/dashboard");
         } catch (error) {
             if (axios.isAxiosError(error)) {
-                // Handle Axios-specific errors
+
                 const axiosError = error as AxiosError;
                 if (axiosError.response) {
-                    // The request was made and the server responded with a status code
+
                     if (axiosError.response.status === 400) {
                         alert("Username already exists. Please choose a different username.");
                     } else if (axiosError.response.status === 401) {
@@ -41,15 +41,15 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                         alert("Server error. Please try again later.");
                     }
                 } else if (axiosError.request) {
-                    // The request was made but no response was received
+
                     alert("No response from server. Please check your internet connection or try again later.");
                 } else {
-                    // Something happened in setting up the request that triggered an Error
+
                     console.error('Error', axiosError.message);
                     alert("An unexpected error occurred. Please try again later.");
                 }
             } else if(error instanceof  Error) {
-                // Handle non-Axios errors
+
                 console.error('Error', error.message);
                 alert("An unexpected error occurred. Please try again later.");
             }

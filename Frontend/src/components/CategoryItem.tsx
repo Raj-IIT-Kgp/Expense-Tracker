@@ -23,7 +23,7 @@ export const CategoryItem = ({ category }: CategoryItemProps) => {
                     },
                 });
                 alert(response.data.message);
-                navigate('/dashboard'); // navigate to home page or the page that lists all categories
+                navigate('/dashboard');
             } catch (error) {
                 console.error("There was an error deleting the category:", error);
             }

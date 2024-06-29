@@ -21,7 +21,7 @@ const Transactions: React.FC = () => {
         const matchesSearchTerm = transaction.description.toLowerCase().includes(searchTerm.toLowerCase());
 
         // Date range filtering logic
-        const transactionDate = transaction.date.substring(0, 10); // Extract YYYY-MM-DD from the timestamp
+        const transactionDate = transaction.date.substring(0, 10);
         const startDateMatch = !startDate || transactionDate >= startDate;
         const endDateMatch = !endDate || transactionDate <= endDate;
 
