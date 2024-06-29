@@ -22,7 +22,7 @@ export const Categories: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <Appbar /> {/* Add the Appbar component */}
+            <Appbar />
             <div className="py-8">
                 <div className="container mx-auto px-4">
                     <div className="flex justify-between items-center mb-6">

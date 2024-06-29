@@ -25,8 +25,8 @@ const EditCategory: React.FC = () => {
                     headers: {Authorization: localStorage.getItem("token")},
                 });
                 setCategory(response.data.category);
-                setName(response.data.category.name); // Set the name state variable
-                setIsLoading(false); // Set loading to false after fetching data
+                setName(response.data.category.name);
+                setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching category', error);
             }
